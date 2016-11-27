@@ -188,6 +188,7 @@ class BaseImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate 
                             }*/
                         }
                         if err != nil {
+                            image.loaded = false
                             image.image = #imageLiteral(resourceName: "pic_fail")
                             image.snp.removeConstraints()
                             image.snp.makeConstraints {
@@ -197,29 +198,29 @@ class BaseImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate 
                                 $0.height.equalTo(image.snp.width)
                             }
                         }
-                        
-                        image.touched = {
-                            if !image.loaded {
-                                loadImage()
-                            } else if !image.original {
-                                self.showProgressDialog()
-                                if let url = URL(string: item.url) {
-                                    image.sd_setImage(with: url, placeholderImage: image.image, options: SDWebImageOptions(rawValue: 0)) { _, _, _, _ in
-                                        self.hideProgressDialog()
-                                        image.original = true
-                                        image.show()
-                                    }
-                                }
-                            } else {
-                                image.show()
-                            }
-                        }
                     }
                     image.sd_setImage(with: url, placeholderImage: #imageLiteral(resourceName: "pic_loading"), options: SDWebImageOptions(rawValue: 0), completed: block)
                 }
             }
             
             loadImage()
+            
+            image.touched = {
+                if !image.loaded {
+                    loadImage()
+                } else if !image.original {
+                    self.showProgressDialog()
+                    if let url = URL(string: item.url) {
+                        image.sd_setImage(with: url, placeholderImage: image.image, options: SDWebImageOptions(rawValue: 0)) { _, _, _, _ in
+                            self.hideProgressDialog()
+                            image.original = true
+                            image.show()
+                        }
+                    }
+                } else {
+                    image.show()
+                }
+            }
             
             let tagflow = UIScrollView()
             tagflow.isScrollEnabled = true

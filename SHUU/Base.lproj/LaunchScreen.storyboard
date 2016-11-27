@@ -28,9 +28,15 @@
                                     <constraint firstAttribute="height" constant="80" id="T8T-Dj-EA9"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="絵・収集" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PuG-HD-lRJ">
-                                <rect key="frame" x="157" y="381" width="62" height="18"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="収集" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PuG-HD-lRJ">
+                                <rect key="frame" x="172.5" y="364" width="31" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Powered by e-shuushuu" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KP4-94-cgB">
+                                <rect key="frame" x="114" y="639" width="146.5" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -38,9 +44,11 @@
                         <color key="backgroundColor" red="0.46666666870000001" green="0.76470589639999997" blue="0.26666668059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="5y5-Cf-1pQ" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="4iT-26-vlx"/>
+                            <constraint firstItem="KP4-94-cgB" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="XZ4-Ij-bcR"/>
                             <constraint firstItem="PuG-HD-lRJ" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Ydr-GS-cxp"/>
                             <constraint firstItem="5y5-Cf-1pQ" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="aur-wg-jE2"/>
-                            <constraint firstItem="PuG-HD-lRJ" firstAttribute="top" secondItem="5y5-Cf-1pQ" secondAttribute="bottom" constant="8" id="uAY-Vw-71h"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="KP4-94-cgB" secondAttribute="bottom" constant="12" id="jdf-SH-xbZ"/>
+                            <constraint firstItem="PuG-HD-lRJ" firstAttribute="top" secondItem="5y5-Cf-1pQ" secondAttribute="bottom" constant="-9" id="uAY-Vw-71h"/>
                         </constraints>
                     </view>
                 </viewController>
