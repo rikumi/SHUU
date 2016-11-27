@@ -33,11 +33,14 @@ class BaseImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate 
     
     var url : String = "" {
         willSet {
-            if url != newValue {
-                loading = true
-                ImagePageFetcher(url: newValue).fetchData(then: self.layoutData)
-            }
+            showProgressDialog()
+            ImagePageFetcher(url: newValue).fetchData(then: self.layoutData)
         }
+    }
+    
+    @IBAction func refresh() {
+        showProgressDialog()
+        ImagePageFetcher(url: url).fetchData(then: self.layoutData)
     }
     
     var prevPageUrl : String = ""
@@ -51,7 +54,6 @@ class BaseImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate 
     var scrollView = UIScrollView()
     
     override func viewDidLoad() {
-        loading = true
         
         scrollView.delegate = self
         scrollView.backgroundColor = #colorLiteral(red: 0.9333333333, green: 0.9333333333, blue: 0.9333333333, alpha: 1)
@@ -64,7 +66,7 @@ class BaseImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate 
         
         searchBar.delegate = self
         searchBar.searchBarStyle = .minimal
-        searchBar.placeholder = "#A 画师，#S 作品，#C 人物，#T 标签，#P 页码"
+        searchBar.placeholder = "@ 人物，@@ 画师，# 标签，## 作品，P 页码"
         scrollView.addSubview(searchBar)
         searchBar.snp.makeConstraints {
             $0.width.equalTo(view)
@@ -102,12 +104,6 @@ class BaseImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate 
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        if loading {
-            showProgressDialog()
-        }
-    }
-    
     func clearView() {
         for view in scrollView.subviews {
             if view != prevPageLabel && view != nextPageLabel && view != searchBar {
@@ -122,9 +118,10 @@ class BaseImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate 
     
     func layoutData(_ data : ImagePageData) {
         
-        loading = false
-        
+        hideProgressDialog()
         clearView()
+        
+        UIView.beginAnimations(nil, context: nil)
         
         let itemWidth = (view.frame.width - spacing * 3) / 2
         
@@ -239,14 +236,14 @@ class BaseImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate 
             
             var first = true
             for tag in item.tags {
-                if tag.displayName == title {
+                if tag.name == title {
                     continue
                 }
                 
                 let tagView = InteractiveLabel()
                 tagView.font = UIFont.systemFont(ofSize: 14)
                 tagView.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-                tagView.backgroundColor = [#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1), #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1), #colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1)][tag.type]
+                tagView.backgroundColor = [#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1), #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1), #colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1)][tag.type]
                 tagView.text = "  " + tag.displayName + "  "
                 tagView.clipsToBounds = true
                 tagView.layer.cornerRadius = 0
@@ -267,9 +264,25 @@ class BaseImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate 
             }
         }
         
-        navigationItem.title = (title ?? "絵収集") + " · " + String(data.page)
+        if data.images.count == 0 {
+            let label = UILabel()
+            label.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+            label.font = UIFont.systemFont(ofSize: 15)
+            label.textAlignment = .center
+            label.text = "啥也没有 ╮(￣▽￣\")╭"
+            scrollView.addSubview(label)
+            label.snp.makeConstraints {
+                $0.edges.equalTo(scrollView)
+            }
+        }
+        
+        UIView.commitAnimations()
+        
+        navigationItem.title = (title ?? "最新") + " · " + String(data.page)
         nextPageUrl = data.images.count == 0 ? "" : data.nextPageUrl ?? ""
         prevPageUrl = data.images.count == 0 ? "" : data.prevPageUrl ?? ""
+        prevPageLabel.text = prevPageUrl != "" ? "上一页" : "没有上一页了"
+        nextPageLabel.text = nextPageUrl != "" ? "下一页" : "没有下一页了"
     }
     
     func nextPage() {
@@ -284,38 +297,23 @@ class BaseImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate 
         }
     }
     
-    var loading : Bool = false {
-        didSet {
-            if oldValue == false && loading {
-                showProgressDialog()
-            } else if oldValue == true && !loading {
-                hideProgressDialog()
-            }
-        }
-    }
-    
     @IBAction func random() {
         url = "http://e-shuushuu.net/random.php"
+        title = "随机"
     }
     
     @IBAction func home() {
         url = "http://e-shuushuu.net"
+        title = "最新"
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        prevPageLabel.text = prevPageUrl != "" ? "上一页" : "没有上一页了"
-        nextPageLabel.text = nextPageUrl != "" ? "下一页" : "没有下一页了"
-        
-        if scrollView.contentOffset.y < -64 - 100 {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if scrollView.contentOffset.y < -64 - 30 {
             prevPage()
         }
-        else if scrollView.contentOffset.y + scrollView.frame.height >= scrollView.contentSize.height + 100 {
+        else if scrollView.contentOffset.y + scrollView.frame.height >= scrollView.contentSize.height + 30 {
             nextPage()
         }
-    }
-    
-    func refresh() {
-        url = homeUrl
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -331,8 +329,7 @@ class BaseImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate 
             var page : String?
             
             var params : [String : String] = [:]
-            let marks = ["#A ": "artist", "#S ": "source", "#C ": "char", "#T ": "tags", "#P": "page",
-                         "#a ": "artist", "#s ": "source", "#c ": "char", "#t ": "tags", "#p": "page", ]
+            let marks = ["@@": "artist", "##": "source", "@": "char", "#": "tags", "P": "page", "p": "page"]
             for tag in tags {
                 var key = "tags"
                 for (mark, meaning) in marks {
@@ -354,6 +351,7 @@ class BaseImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate 
             }
             
             if params.count != 0 {
+                showProgressDialog()
                 let request = Alamofire.request("http://e-shuushuu.net/search/process/", method: .post, parameters: params)
                 request.responseString { response in
                     if response.result.isSuccess {

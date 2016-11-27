@@ -25,7 +25,7 @@ class TagData : BaseData {
     }
     
     @objc func open() {
-        BaseImageVC.start(withUrl: url, title: displayName)
+        BaseImageVC.start(withUrl: url, title: name)
     }
     
     var displayName : String {
