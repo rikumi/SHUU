@@ -13,7 +13,7 @@
         <scene sceneID="Bm2-Yi-PRi">
             <objects>
                 <navigationController id="hY2-z8-nL3" customClass="BaseNavigationController" customModule="SHUU" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="sKd-zp-NgP">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="sKd-zp-NgP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -30,7 +30,7 @@
         <!--絵・収集-->
         <scene sceneID="d4Y-5t-afD">
             <objects>
-                <viewController id="aCk-9y-fhl" customClass="RecentImageVC" customModule="SHUU" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="aCk-9y-fhl" customClass="BaseImageVC" customModule="SHUU" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="d16-a9-0gQ"/>
                         <viewControllerLayoutGuide type="bottom" id="h54-Sf-svY"/>

@@ -28,12 +28,20 @@ class ImagePageFetcher {
                         data.images.append(ImageData(node: thread))
                     }
                     if let url = html.firstChild(css: ".next")?.firstChild(css: "a")?.attr("href") {
-                        data.nextPageUrl = "http://e-shuushuu.net" + url
+                        if url.hasPrefix("/") {
+                            data.nextPageUrl = "http://e-shuushuu.net" + url
+                        } else {
+                            data.nextPageUrl = self.url.components(separatedBy: "?")[0] + url
+                        }
                     } else {
                         data.nextPageUrl = nil
                     }
                     if let url = html.firstChild(css: ".prev")?.firstChild(css: "a")?.attr("href") {
-                        data.prevPageUrl = "http://e-shuushuu.net" + url
+                        if url.hasPrefix("/") {
+                            data.prevPageUrl = "http://e-shuushuu.net" + url
+                        } else {
+                            data.prevPageUrl = self.url.components(separatedBy: "?")[0] + url
+                        }
                     } else {
                         data.prevPageUrl = nil
                     }

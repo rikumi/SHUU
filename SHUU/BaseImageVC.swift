@@ -13,6 +13,8 @@ import Alamofire
 import Fuzi
 import Toast_Swift
 
+var hd = false
+
 class BaseImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate {
     
     let spacing = CGFloat(8)
@@ -44,18 +46,16 @@ class BaseImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate 
         ImagePageFetcher(url: url).fetchData(then: self.layoutData)
     }
     
-    var originalPic = false
-    
     @IBOutlet var originalItem : UIBarButtonItem!
     
     @IBAction func original() {
-        if !originalPic {
-            originalPic = true
+        if !hd {
+            hd = true
             showMessage(message: "HD原图已开启")
             originalItem.title = "LD"
             refresh()
         } else {
-            originalPic = false
+            hd = false
             showMessage(message: "HD原图已关闭")
             originalItem.title = "HD"
             refresh()
@@ -120,6 +120,8 @@ class BaseImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate 
         
         if homeUrl != "" {
             url = homeUrl
+        } else if url == "" {
+            url = "http://e-shuushuu.net"
         }
     }
     
@@ -189,11 +191,11 @@ class BaseImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate 
             }
             
             func loadImage() {
-                if let url = URL(string: self.originalPic ? item.url : item.thumbnail) {
+                if let url = URL(string: (hd || item.thumbnail.contains("spoiler.png")) ? item.url : item.thumbnail) {
                     image.sd_setImage(with: url, placeholderImage: #imageLiteral(resourceName: "pic_loading"), options: SDWebImageOptions(rawValue: 0)) { img, err, type, url in
                         if let img = img {
                             image.loaded = true
-                            image.original = self.originalPic
+                            image.original = hd
                             
                             image.snp.removeConstraints()
                             image.snp.makeConstraints {
@@ -226,12 +228,12 @@ class BaseImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate 
                 if !image.loaded {
                     loadImage()
                 } else if !image.original {
-                    if !self.originalPic {
+                    if !hd {
                         self.showProgressDialog()
                     }
                     if let url = URL(string: item.url) {
                         image.sd_setImage(with: url, placeholderImage: image.image, options: SDWebImageOptions(rawValue: 0)) { _, _, _, _ in
-                            if !self.originalPic {
+                            if !hd {
                                 self.hideProgressDialog()
                             } else {
                                 image.hideToastActivity()
@@ -322,7 +324,24 @@ class BaseImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate 
     }
     
     @IBAction func random() {
-        url = "http://e-shuushuu.net/random.php"
+        showProgressDialog()
+        let request = Alamofire.request("http://e-shuushuu.net/random.php")
+        request.responseString { response in
+            if response.result.isSuccess {
+                if let str = response.result.value {
+                    if let html = try? HTMLDocument(string: str) {
+                        if let children = html.firstChild(css: ".submit")?.css("input") {
+                            for input in children {
+                                if (input.attr("name") ?? "") == "referer" {
+                                    self.url = "http://e-shuushuu.net" + (input.attr("value") ?? "")
+                                    return
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
         title = "随机"
     }
     
@@ -376,6 +395,7 @@ class BaseImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate 
             
             if params.count != 0 {
                 showProgressDialog()
+                title = "搜索结果"
                 let request = Alamofire.request("http://e-shuushuu.net/search/process/", method: .post, parameters: params)
                 request.responseString { response in
                     if response.result.isSuccess {
@@ -384,7 +404,12 @@ class BaseImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate 
                                 if let children = html.firstChild(css: ".submit")?.css("input") {
                                     for input in children {
                                         if (input.attr("name") ?? "") == "referer" {
-                                            var url = "http://e-shuushuu.net" + (input.attr("value") ?? "")
+                                            var url = input.attr("value") ?? ""
+                                            if url.hasPrefix("/") {
+                                                url = "http://e-shuushuu.net" + url
+                                            } else {
+                                                url = "http://e-shuushuu.net/search/process/" + url
+                                            }
                                             if let page = page {
                                                 url += "&page=" + page
                                             }
@@ -398,7 +423,11 @@ class BaseImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate 
                     }
                 }
             } else if let pageStr = page, let page = Int(pageStr) {
-                let comps = url.replacingOccurrences(of: "random.php", with: "").components(separatedBy: "?")
+                if title == "随机" {
+                    title = "最新"
+                }
+                
+                let comps = url.components(separatedBy: "?")
                 let left = comps[0]
                 var map : [String : String] = [:]
                 
