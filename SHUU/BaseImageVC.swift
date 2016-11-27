@@ -11,6 +11,7 @@ import SnapKit
 import SDWebImage
 import Alamofire
 import Fuzi
+import Toast_Swift
 
 class BaseImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate {
     
@@ -41,6 +42,24 @@ class BaseImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate 
     @IBAction func refresh() {
         showProgressDialog()
         ImagePageFetcher(url: url).fetchData(then: self.layoutData)
+    }
+    
+    var originalPic = false
+    
+    @IBOutlet var originalItem : UIBarButtonItem!
+    
+    @IBAction func original() {
+        if !originalPic {
+            originalPic = true
+            showMessage(message: "HD原图已开启")
+            originalItem.title = "LD"
+            refresh()
+        } else {
+            originalPic = false
+            showMessage(message: "HD原图已关闭")
+            originalItem.title = "HD"
+            refresh()
+        }
     }
     
     var prevPageUrl : String = ""
@@ -170,10 +189,12 @@ class BaseImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate 
             }
             
             func loadImage() {
-                if let url = URL(string: item.thumbnail) {
-                    let block : SDWebImageCompletionBlock = { img, err, type, url in
+                if let url = URL(string: self.originalPic ? item.url : item.thumbnail) {
+                    image.sd_setImage(with: url, placeholderImage: #imageLiteral(resourceName: "pic_loading"), options: SDWebImageOptions(rawValue: 0)) { img, err, type, url in
                         if let img = img {
                             image.loaded = true
+                            image.original = self.originalPic
+                            
                             image.snp.removeConstraints()
                             image.snp.makeConstraints {
                                 $0.left.equalTo(itemView)
@@ -181,14 +202,11 @@ class BaseImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate 
                                 $0.top.equalTo(itemView)
                                 $0.height.equalTo(image.snp.width).multipliedBy(img.size.height / img.size.width)
                             }
-                            /*if let url = URL(string: item.url) {
-                                image.sd_setImage(with: url, placeholderImage: img, options: SDWebImageOptions(rawValue: 0)) { _, _, _, _ in
-                                    image.original = true
-                                }
-                            }*/
                         }
                         if err != nil {
                             image.loaded = false
+                            image.original = false
+                            
                             image.image = #imageLiteral(resourceName: "pic_fail")
                             image.snp.removeConstraints()
                             image.snp.makeConstraints {
@@ -199,7 +217,6 @@ class BaseImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate 
                             }
                         }
                     }
-                    image.sd_setImage(with: url, placeholderImage: #imageLiteral(resourceName: "pic_loading"), options: SDWebImageOptions(rawValue: 0), completed: block)
                 }
             }
             
@@ -209,10 +226,16 @@ class BaseImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate 
                 if !image.loaded {
                     loadImage()
                 } else if !image.original {
-                    self.showProgressDialog()
+                    if !self.originalPic {
+                        self.showProgressDialog()
+                    }
                     if let url = URL(string: item.url) {
                         image.sd_setImage(with: url, placeholderImage: image.image, options: SDWebImageOptions(rawValue: 0)) { _, _, _, _ in
-                            self.hideProgressDialog()
+                            if !self.originalPic {
+                                self.hideProgressDialog()
+                            } else {
+                                image.hideToastActivity()
+                            }
                             image.original = true
                             image.show()
                         }

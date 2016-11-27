@@ -54,12 +54,22 @@
                                 </connections>
                             </barButtonItem>
                         </leftBarButtonItems>
-                        <barButtonItem key="rightBarButtonItem" title="随机" id="8dW-F6-Zvf">
-                            <connections>
-                                <action selector="random" destination="aCk-9y-fhl" id="y3m-uJ-DpM"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="随机" id="8dW-F6-Zvf">
+                                <connections>
+                                    <action selector="random" destination="aCk-9y-fhl" id="y3m-uJ-DpM"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="HD" id="YGx-Th-x5m">
+                                <connections>
+                                    <action selector="original" destination="aCk-9y-fhl" id="knL-Tf-z3j"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
+                    <connections>
+                        <outlet property="originalItem" destination="YGx-Th-x5m" id="CGg-kO-obh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5kx-Uh-ffN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
