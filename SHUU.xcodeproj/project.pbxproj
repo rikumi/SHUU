@@ -7,23 +7,49 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6A2DE7544BD301FDAB773487 /* Pods_SHUU.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9408C2BA399E38C7480CC19 /* Pods_SHUU.framework */; };
 		D317E13E1DE97359008139D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D317E13D1DE97359008139D9 /* AppDelegate.swift */; };
-		D317E1401DE97359008139D9 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D317E13F1DE97359008139D9 /* FirstViewController.swift */; };
-		D317E1421DE97359008139D9 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D317E1411DE97359008139D9 /* SecondViewController.swift */; };
 		D317E1451DE97359008139D9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D317E1431DE97359008139D9 /* Main.storyboard */; };
 		D317E1471DE97359008139D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D317E1461DE97359008139D9 /* Assets.xcassets */; };
 		D317E14A1DE97359008139D9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D317E1481DE97359008139D9 /* LaunchScreen.storyboard */; };
+		D317E1521DE978B6008139D9 /* VCs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D317E1511DE978B6008139D9 /* VCs.swift */; };
+		D317E1581DE97A0E008139D9 /* ImagePageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D317E1571DE97A0E008139D9 /* ImagePageFetcher.swift */; };
+		D317E15A1DE97A1B008139D9 /* BaseImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D317E1591DE97A1B008139D9 /* BaseImageVC.swift */; };
+		D317E15D1DE97BBC008139D9 /* BaseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D317E15C1DE97BBC008139D9 /* BaseData.swift */; };
+		D317E15F1DE97BE6008139D9 /* ImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D317E15E1DE97BE6008139D9 /* ImageData.swift */; };
+		D317E1611DE97CCE008139D9 /* TagData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D317E1601DE97CCE008139D9 /* TagData.swift */; };
+		D317E1641DE97E4B008139D9 /* GCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D317E1631DE97E4B008139D9 /* GCalendar.swift */; };
+		D317E1661DE98D73008139D9 /* HttpGet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D317E1651DE98D73008139D9 /* HttpGet.swift */; };
+		D317E1681DE9A049008139D9 /* ImagePageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D317E1671DE9A049008139D9 /* ImagePageData.swift */; };
+		D317E16C1DE9C85D008139D9 /* ExtUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D317E16B1DE9C85D008139D9 /* ExtUIViewController.swift */; };
+		D317E16E1DE9CE79008139D9 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D317E16D1DE9CE79008139D9 /* BaseNavigationController.swift */; };
+		D317E1741DE9D8CB008139D9 /* InteractiveLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D317E1731DE9D8CB008139D9 /* InteractiveLabel.swift */; };
+		D317E1761DE9DE1C008139D9 /* InteractiveImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D317E1751DE9DE1C008139D9 /* InteractiveImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		25ACFCC8814F4F2B064FC706 /* Pods-SHUU.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SHUU.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SHUU/Pods-SHUU.debug.xcconfig"; sourceTree = "<group>"; };
+		A640EA44315A93B463B544E8 /* Pods-SHUU.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SHUU.release.xcconfig"; path = "Pods/Target Support Files/Pods-SHUU/Pods-SHUU.release.xcconfig"; sourceTree = "<group>"; };
 		D317E13A1DE97359008139D9 /* SHUU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SHUU.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D317E13D1DE97359008139D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D317E13F1DE97359008139D9 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		D317E1411DE97359008139D9 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		D317E1441DE97359008139D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D317E1461DE97359008139D9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D317E1491DE97359008139D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D317E14B1DE97359008139D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D317E1511DE978B6008139D9 /* VCs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VCs.swift; sourceTree = "<group>"; };
+		D317E1571DE97A0E008139D9 /* ImagePageFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePageFetcher.swift; sourceTree = "<group>"; };
+		D317E1591DE97A1B008139D9 /* BaseImageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseImageVC.swift; sourceTree = "<group>"; };
+		D317E15C1DE97BBC008139D9 /* BaseData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseData.swift; sourceTree = "<group>"; };
+		D317E15E1DE97BE6008139D9 /* ImageData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageData.swift; sourceTree = "<group>"; };
+		D317E1601DE97CCE008139D9 /* TagData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagData.swift; sourceTree = "<group>"; };
+		D317E1631DE97E4B008139D9 /* GCalendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCalendar.swift; sourceTree = "<group>"; };
+		D317E1651DE98D73008139D9 /* HttpGet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpGet.swift; sourceTree = "<group>"; };
+		D317E1671DE9A049008139D9 /* ImagePageData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePageData.swift; sourceTree = "<group>"; };
+		D317E16B1DE9C85D008139D9 /* ExtUIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtUIViewController.swift; sourceTree = "<group>"; };
+		D317E16D1DE9CE79008139D9 /* BaseNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
+		D317E1731DE9D8CB008139D9 /* InteractiveLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractiveLabel.swift; sourceTree = "<group>"; };
+		D317E1751DE9DE1C008139D9 /* InteractiveImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractiveImageView.swift; sourceTree = "<group>"; };
+		D9408C2BA399E38C7480CC19 /* Pods_SHUU.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SHUU.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +57,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A2DE7544BD301FDAB773487 /* Pods_SHUU.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3F5C08CC449DC8A7DE802D39 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D9408C2BA399E38C7480CC19 /* Pods_SHUU.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CB4BA9852C4AA10A2564C80F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				25ACFCC8814F4F2B064FC706 /* Pods-SHUU.debug.xcconfig */,
+				A640EA44315A93B463B544E8 /* Pods-SHUU.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		D317E1311DE97359008139D9 = {
 			isa = PBXGroup;
 			children = (
 				D317E13C1DE97359008139D9 /* SHUU */,
 				D317E13B1DE97359008139D9 /* Products */,
+				CB4BA9852C4AA10A2564C80F /* Pods */,
+				3F5C08CC449DC8A7DE802D39 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,15 +102,58 @@
 		D317E13C1DE97359008139D9 /* SHUU */ = {
 			isa = PBXGroup;
 			children = (
+				D317E15B1DE97BA7008139D9 /* Data */,
+				D317E1541DE979F2008139D9 /* Fetchers */,
+				D317E1531DE979DE008139D9 /* Pages */,
+				D317E1621DE97E43008139D9 /* Utils */,
 				D317E13D1DE97359008139D9 /* AppDelegate.swift */,
-				D317E13F1DE97359008139D9 /* FirstViewController.swift */,
-				D317E1411DE97359008139D9 /* SecondViewController.swift */,
 				D317E1431DE97359008139D9 /* Main.storyboard */,
 				D317E1461DE97359008139D9 /* Assets.xcassets */,
 				D317E1481DE97359008139D9 /* LaunchScreen.storyboard */,
 				D317E14B1DE97359008139D9 /* Info.plist */,
+				D317E16D1DE9CE79008139D9 /* BaseNavigationController.swift */,
 			);
 			path = SHUU;
+			sourceTree = "<group>";
+		};
+		D317E1531DE979DE008139D9 /* Pages */ = {
+			isa = PBXGroup;
+			children = (
+				D317E1591DE97A1B008139D9 /* BaseImageVC.swift */,
+				D317E1511DE978B6008139D9 /* VCs.swift */,
+			);
+			name = Pages;
+			sourceTree = "<group>";
+		};
+		D317E1541DE979F2008139D9 /* Fetchers */ = {
+			isa = PBXGroup;
+			children = (
+				D317E1571DE97A0E008139D9 /* ImagePageFetcher.swift */,
+			);
+			name = Fetchers;
+			sourceTree = "<group>";
+		};
+		D317E15B1DE97BA7008139D9 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				D317E15C1DE97BBC008139D9 /* BaseData.swift */,
+				D317E15E1DE97BE6008139D9 /* ImageData.swift */,
+				D317E1601DE97CCE008139D9 /* TagData.swift */,
+				D317E1671DE9A049008139D9 /* ImagePageData.swift */,
+			);
+			name = Data;
+			sourceTree = "<group>";
+		};
+		D317E1621DE97E43008139D9 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				D317E1631DE97E4B008139D9 /* GCalendar.swift */,
+				D317E1651DE98D73008139D9 /* HttpGet.swift */,
+				D317E16B1DE9C85D008139D9 /* ExtUIViewController.swift */,
+				D317E1731DE9D8CB008139D9 /* InteractiveLabel.swift */,
+				D317E1751DE9DE1C008139D9 /* InteractiveImageView.swift */,
+			);
+			name = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +163,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D317E14E1DE97359008139D9 /* Build configuration list for PBXNativeTarget "SHUU" */;
 			buildPhases = (
+				7E3D17D019303C026417C5FE /* [CP] Check Pods Manifest.lock */,
 				D317E1361DE97359008139D9 /* Sources */,
 				D317E1371DE97359008139D9 /* Frameworks */,
 				D317E1381DE97359008139D9 /* Resources */,
+				2DB330B57A1913D9A5D43D5D /* [CP] Embed Pods Frameworks */,
+				869473FE2098D149C1E004CC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -135,14 +227,73 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		2DB330B57A1913D9A5D43D5D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SHUU/Pods-SHUU-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7E3D17D019303C026417C5FE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		869473FE2098D149C1E004CC /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SHUU/Pods-SHUU-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		D317E1361DE97359008139D9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D317E1421DE97359008139D9 /* SecondViewController.swift in Sources */,
+				D317E16E1DE9CE79008139D9 /* BaseNavigationController.swift in Sources */,
+				D317E1661DE98D73008139D9 /* HttpGet.swift in Sources */,
+				D317E1581DE97A0E008139D9 /* ImagePageFetcher.swift in Sources */,
+				D317E1761DE9DE1C008139D9 /* InteractiveImageView.swift in Sources */,
+				D317E16C1DE9C85D008139D9 /* ExtUIViewController.swift in Sources */,
+				D317E15D1DE97BBC008139D9 /* BaseData.swift in Sources */,
 				D317E13E1DE97359008139D9 /* AppDelegate.swift in Sources */,
-				D317E1401DE97359008139D9 /* FirstViewController.swift in Sources */,
+				D317E1741DE9D8CB008139D9 /* InteractiveLabel.swift in Sources */,
+				D317E1521DE978B6008139D9 /* VCs.swift in Sources */,
+				D317E1681DE9A049008139D9 /* ImagePageData.swift in Sources */,
+				D317E15A1DE97A1B008139D9 /* BaseImageVC.swift in Sources */,
+				D317E1611DE97CCE008139D9 /* TagData.swift in Sources */,
+				D317E15F1DE97BE6008139D9 /* ImageData.swift in Sources */,
+				D317E1641DE97E4B008139D9 /* GCalendar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,6 +337,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -236,6 +388,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -263,27 +416,33 @@
 		};
 		D317E14F1DE97359008139D9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 25ACFCC8814F4F2B064FC706 /* Pods-SHUU.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = MW9PK9KE48;
 				INFOPLIST_FILE = SHUU/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.riku.SHUU;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		D317E1501DE97359008139D9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A640EA44315A93B463B544E8 /* Pods-SHUU.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = MW9PK9KE48;
 				INFOPLIST_FILE = SHUU/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.riku.SHUU;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -306,6 +465,7 @@
 				D317E1501DE97359008139D9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

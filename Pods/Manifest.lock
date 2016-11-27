@@ -1,0 +1,32 @@
+PODS:
+  - Alamofire (4.1.0)
+  - CPImageViewer (4.0.0)
+  - Fuzi (1.0.1)
+  - SDWebImage (3.8.2):
+    - SDWebImage/Core (= 3.8.2)
+  - SDWebImage/Core (3.8.2)
+  - SnapKit (3.0.2)
+  - SVProgressHUD (2.0.4)
+  - Toast-Swift (2.0.0)
+
+DEPENDENCIES:
+  - Alamofire (~> 4.0)
+  - CPImageViewer (~> 4.0)
+  - Fuzi
+  - SDWebImage
+  - SnapKit
+  - SVProgressHUD
+  - Toast-Swift
+
+SPEC CHECKSUMS:
+  Alamofire: e266cf991b933498df791e645e0d8ac294492153
+  CPImageViewer: 7ebd6f707b45d70a3253b2b15f00c31c581a2704
+  Fuzi: 851403654bac55675aaeed815d0c8a1d3e3d3e8b
+  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+  SnapKit: 2e456761aa92d4d4067a7a5594c18769d451a8ad
+  SVProgressHUD: bfde85ed6c573ea802b9cb37894ed9b629034f1b
+  Toast-Swift: 5b2f8f720f7e78e48511f693df1f9c9a6e38a25a
+
+PODFILE CHECKSUM: 60a3601fa628a8c53f30b6ae5f76e93f1baec0ea
+
+COCOAPODS: 1.1.1

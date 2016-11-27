@@ -1,0 +1,6 @@
+framework module Pods_SHUU {
+  umbrella header "Pods-SHUU-umbrella.h"
+
+  export *
+  module * { export * }
+}
