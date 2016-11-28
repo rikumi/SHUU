@@ -10,7 +10,6 @@ import Foundation
 import Fuzi
 
 class YImageData : BaseData {
-    var id : String
     var thumbnail : String
     var url : String
     
@@ -18,9 +17,7 @@ class YImageData : BaseData {
     
     init(node: XMLElement) {
         thumbnail = node.firstChild(css: "img")?.attr("src") ?? ""
-        url = node.attr("href") ?? ""
-        id = url.replacingOccurrences(of: "/post/show/", with: "")
-        url = "http://yande.re" + url
+        url = node.firstChild(css: ".directlink")?.attr("href") ?? ""
         tags = []
         let tagStr = node.firstChild(css: "img")?.attr("alt")
         

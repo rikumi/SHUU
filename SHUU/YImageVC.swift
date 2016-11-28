@@ -199,43 +199,11 @@ class YImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate, Na
             }
             
             func loadImage() {
-                if isHD {
-                    httpGet(url: item.url) {
-                        if let str = $0, let html = try? HTMLDocument(string: str), let url = URL(string: html.firstChild(css: "#image")?.attr("src") ?? "") {
-                            image.sd_setImage(with: url, placeholderImage: #imageLiteral(resourceName: "pic_loading"), options: SDWebImageOptions(rawValue: 0)) { img, err, type, url in
-                                if let img = img {
-                                    image.loaded = true
-                                    image.original = true
-                                    
-                                    image.snp.removeConstraints()
-                                    image.snp.makeConstraints {
-                                        $0.left.equalTo(itemView)
-                                        $0.right.equalTo(itemView)
-                                        $0.top.equalTo(itemView)
-                                        $0.height.equalTo(image.snp.width).multipliedBy(img.size.height / img.size.width)
-                                    }
-                                }
-                                if err != nil {
-                                    image.loaded = false
-                                    image.original = false
-                                    
-                                    image.image = #imageLiteral(resourceName: "pic_fail")
-                                    image.snp.removeConstraints()
-                                    image.snp.makeConstraints {
-                                        $0.left.equalTo(itemView)
-                                        $0.right.equalTo(itemView)
-                                        $0.top.equalTo(itemView)
-                                        $0.height.equalTo(image.snp.width)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                } else if let url = URL(string: item.thumbnail) {
+                if let url = URL(string: isHD ? item.url : item.thumbnail) {
                     image.sd_setImage(with: url, placeholderImage: #imageLiteral(resourceName: "pic_loading"), options: SDWebImageOptions(rawValue: 0)) { img, err, type, url in
                         if let img = img {
                             image.loaded = true
-                            image.original = false
+                            image.original = isHD
                             
                             image.snp.removeConstraints()
                             image.snp.makeConstraints {
@@ -268,42 +236,16 @@ class YImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate, Na
                 if !image.loaded {
                     loadImage()
                 } else if !image.original {
-                    self.showProgressDialog()
-                    httpGet(url: item.url) {
-                        if let str = $0, let html = try? HTMLDocument(string: str), let url = URL(string: html.firstChild(css: "#image")?.attr("src") ?? "") {
-                            image.sd_setImage(with: url, placeholderImage: image.image, options: SDWebImageOptions(rawValue: 0)) { img, err, type, url in
+                    if !isHD {
+                        self.showProgressDialog()
+                    }
+                    if let url = URL(string: item.url) {
+                        image.sd_setImage(with: url, placeholderImage: image.image, options: SDWebImageOptions(rawValue: 0)) { _, _, _, _ in
+                            if !isHD {
                                 self.hideProgressDialog()
-                                
-                                if let img = img {
-                                    image.loaded = true
-                                    image.original = true
-                                    
-                                    image.snp.removeConstraints()
-                                    image.snp.makeConstraints {
-                                        $0.left.equalTo(itemView)
-                                        $0.right.equalTo(itemView)
-                                        $0.top.equalTo(itemView)
-                                        $0.height.equalTo(image.snp.width).multipliedBy(img.size.height / img.size.width)
-                                    }
-                                    image.show()
-                                }
-                                if err != nil {
-                                    image.loaded = false
-                                    image.original = false
-                                    
-                                    image.image = #imageLiteral(resourceName: "pic_fail")
-                                    image.snp.removeConstraints()
-                                    image.snp.makeConstraints {
-                                        $0.left.equalTo(itemView)
-                                        $0.right.equalTo(itemView)
-                                        $0.top.equalTo(itemView)
-                                        $0.height.equalTo(image.snp.width)
-                                    }
-                                }
                             }
-                        } else {
-                            self.hideProgressDialog()
-                            self.showMessage(message: "图片原地址错误")
+                            image.original = true
+                            image.show()
                         }
                     }
                 } else {

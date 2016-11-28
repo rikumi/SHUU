@@ -243,8 +243,6 @@ class EImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate, Na
                         image.sd_setImage(with: url, placeholderImage: image.image, options: SDWebImageOptions(rawValue: 0)) { _, _, _, _ in
                             if !isHD {
                                 self.hideProgressDialog()
-                            } else {
-                                image.hideToastActivity()
                             }
                             image.original = true
                             image.show()

@@ -24,8 +24,10 @@ class YImagePageFetcher {
         httpGet(url: url) {
             if let str = $0 {
                 if let html = try? HTMLDocument(string: str) {
-                    for thread in html.css(".thumb") {
-                        data.images.append(YImageData(node: thread))
+                    if let ul = html.firstChild(css: "#post-list-posts") {
+                        for thread in ul.css("li") {
+                            data.images.append(YImageData(node: thread))
+                        }
                     }
                     if let url = html.firstChild(css: ".next_page")?.attr("href") {
                         if url.hasPrefix("/") {
