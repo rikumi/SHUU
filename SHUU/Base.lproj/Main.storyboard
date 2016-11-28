@@ -20,17 +20,74 @@
                         <color key="barTintColor" red="0.46666666870000001" green="0.76470589639999997" blue="0.26666668059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="aCk-9y-fhl" kind="relationship" relationship="rootViewController" id="t61-hZ-Iny"/>
+                        <segue destination="Y2n-7v-vcF" kind="relationship" relationship="rootViewController" id="7lQ-a3-61R"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IOA-yu-UHQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-956" y="0.0"/>
         </scene>
-        <!--絵・収集-->
+        <!--Tab BarVC-->
+        <scene sceneID="jDo-gm-0eh">
+            <objects>
+                <tabBarController id="Y2n-7v-vcF" customClass="TabBarVC" customModule="SHUU" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="NJ1-40-DZh">
+                        <nil key="title"/>
+                        <leftBarButtonItems>
+                            <barButtonItem systemItem="refresh" id="QOT-Zx-bhV">
+                                <connections>
+                                    <action selector="refresh" destination="Y2n-7v-vcF" id="Uqq-tX-iav"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="首页" id="HvL-wH-LwP">
+                                <connections>
+                                    <action selector="home" destination="Y2n-7v-vcF" id="28j-Wu-jj7"/>
+                                </connections>
+                            </barButtonItem>
+                        </leftBarButtonItems>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="Peo-7M-PGr">
+                            <rect key="frame" x="123" y="7" width="129" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="采集"/>
+                                <segment title="扫图"/>
+                            </segments>
+                            <connections>
+                                <action selector="changeTab" destination="Y2n-7v-vcF" eventType="valueChanged" id="XgG-bv-s3c"/>
+                            </connections>
+                        </segmentedControl>
+                        <rightBarButtonItems>
+                            <barButtonItem title="随机" id="8dW-F6-Zvf">
+                                <connections>
+                                    <action selector="random" destination="Y2n-7v-vcF" id="jdE-eX-b6Z"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="HD" id="YGx-Th-x5m">
+                                <connections>
+                                    <action selector="hd" destination="Y2n-7v-vcF" id="2tc-eB-46E"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="zeD-mA-ud2">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <outlet property="segmentedControl" destination="Peo-7M-PGr" id="ZOO-BE-skL"/>
+                        <segue destination="aCk-9y-fhl" kind="relationship" relationship="viewControllers" id="ujl-DB-eWv"/>
+                        <segue destination="PFv-zi-BHM" kind="relationship" relationship="viewControllers" id="8vn-4q-omA"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NdG-c7-ZYG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-202.40000000000001" y="-0.44977511244377816"/>
+        </scene>
+        <!--采集-->
         <scene sceneID="d4Y-5t-afD">
             <objects>
-                <viewController id="aCk-9y-fhl" customClass="BaseImageVC" customModule="SHUU" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="aCk-9y-fhl" customClass="EImageVC" customModule="SHUU" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="d16-a9-0gQ"/>
                         <viewControllerLayoutGuide type="bottom" id="h54-Sf-svY"/>
@@ -40,40 +97,32 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="最新" image="second" id="lum-mt-vch" customClass="NoTitleTabBarItem" customModule="SHUU" customModuleProvider="target"/>
-                    <navigationItem key="navigationItem" title="絵・収集" id="2q9-Fe-0He">
-                        <leftBarButtonItems>
-                            <barButtonItem systemItem="refresh" id="QOT-Zx-bhV">
-                                <connections>
-                                    <action selector="refresh" destination="aCk-9y-fhl" id="c9n-ql-0eQ"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="首页" id="HvL-wH-LwP">
-                                <connections>
-                                    <action selector="home" destination="aCk-9y-fhl" id="dIZ-FW-GtV"/>
-                                </connections>
-                            </barButtonItem>
-                        </leftBarButtonItems>
-                        <rightBarButtonItems>
-                            <barButtonItem title="随机" id="8dW-F6-Zvf">
-                                <connections>
-                                    <action selector="random" destination="aCk-9y-fhl" id="y3m-uJ-DpM"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="HD" id="YGx-Th-x5m">
-                                <connections>
-                                    <action selector="original" destination="aCk-9y-fhl" id="knL-Tf-z3j"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="originalItem" destination="YGx-Th-x5m" id="CGg-kO-obh"/>
-                    </connections>
+                    <tabBarItem key="tabBarItem" title="采集" image="second" id="lum-mt-vch"/>
+                    <navigationItem key="navigationItem" title="采集" id="2q9-Fe-0He"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5kx-Uh-ffN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-196" y="0.0"/>
+            <point key="canvasLocation" x="548" y="0.0"/>
+        </scene>
+        <!--扫图-->
+        <scene sceneID="vVd-di-R9w">
+            <objects>
+                <viewController id="PFv-zi-BHM" customClass="YImageVC" customModule="SHUU" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Yoa-cO-Yfq"/>
+                        <viewControllerLayoutGuide type="bottom" id="dk3-Mk-aRG"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="UJm-LZ-Cyw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="扫图" image="second" id="K4R-xy-Ky2"/>
+                    <navigationItem key="navigationItem" title="扫图" id="Csl-Z4-tgr"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QYs-g6-hTg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1303" y="0.0"/>
         </scene>
     </scenes>
     <resources>

@@ -8,6 +8,8 @@
 
 import UIKit
 
+var isHD = false
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

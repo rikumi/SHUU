@@ -1,5 +1,5 @@
 //
-//  ImagePageData.swift
+//  EImagePageData.swift
 //  SHUU
 //
 //  Created by Vhyme on 2016/11/26.
@@ -8,8 +8,8 @@
 
 import Foundation
 
-class ImagePageData : BaseData {
+class EImagePageData : BaseData {
     var page : Int = 1
-    var images = [ImageData]()
+    var images = [EImageData]()
     var prevPageUrl, nextPageUrl : String?
 }

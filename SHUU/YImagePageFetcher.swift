@@ -9,7 +9,7 @@
 import Foundation
 import Fuzi
 
-class ImagePageFetcher {
+class YImagePageFetcher {
     
     var url : String
     
@@ -17,35 +17,35 @@ class ImagePageFetcher {
         self.url = url
     }
     
-    func fetchData(then closure : @escaping (ImagePageData) -> Void) {
+    func fetchData(then closure : @escaping (YImagePageData) -> Void) {
         
-        let data = ImagePageData()
+        let data = YImagePageData()
         
         httpGet(url: url) {
             if let str = $0 {
                 if let html = try? HTMLDocument(string: str) {
-                    for thread in html.css(".image_thread") {
-                        data.images.append(ImageData(node: thread))
+                    for thread in html.css(".thumb") {
+                        data.images.append(YImageData(node: thread))
                     }
-                    if let url = html.firstChild(css: ".next")?.firstChild(css: "a")?.attr("href") {
+                    if let url = html.firstChild(css: ".next_page")?.attr("href") {
                         if url.hasPrefix("/") {
-                            data.nextPageUrl = "http://e-shuushuu.net" + url
+                            data.nextPageUrl = "https://yande.re" + url
                         } else {
                             data.nextPageUrl = self.url.components(separatedBy: "?")[0] + url
                         }
                     } else {
                         data.nextPageUrl = nil
                     }
-                    if let url = html.firstChild(css: ".prev")?.firstChild(css: "a")?.attr("href") {
+                    if let url = html.firstChild(css: ".previous_page")?.attr("href") {
                         if url.hasPrefix("/") {
-                            data.prevPageUrl = "http://e-shuushuu.net" + url
+                            data.prevPageUrl = "https://yande.re" + url
                         } else {
                             data.prevPageUrl = self.url.components(separatedBy: "?")[0] + url
                         }
                     } else {
                         data.prevPageUrl = nil
                     }
-                    data.page = Int(html.firstChild(css: ".page")?.stringValue.replacingOccurrences(of: "Page ", with: "") ?? "1") ?? 1
+                    data.page = Int(html.firstChild(css: ".current")?.stringValue ?? "1") ?? 1
                 }
             }
             closure(data)

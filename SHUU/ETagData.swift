@@ -1,5 +1,5 @@
 //
-//  TagData.swift
+//  ETagData.swift
 //  SHUU
 //
 //  Created by Vhyme on 2016/11/26.
@@ -9,7 +9,7 @@
 import Foundation
 import Fuzi
 
-class TagData : BaseData {
+class ETagData : BaseData {
     var name : String
     var id : String
     var type : Int
@@ -25,7 +25,7 @@ class TagData : BaseData {
     }
     
     @objc func open() {
-        BaseImageVC.start(withUrl: url, title: name)
+        EImageVC.start(withUrl: url, title: name)
     }
     
     var displayName : String {

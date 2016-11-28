@@ -13,9 +13,7 @@ import Alamofire
 import Fuzi
 import Toast_Swift
 
-var hd = false
-
-class BaseImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate {
+class EImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate, NavProtocol {
     
     let spacing = CGFloat(8)
     let tagSpacing = CGFloat(0)
@@ -27,9 +25,20 @@ class BaseImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate 
     
     var homeUrl = ""
     
+    override var title: String? {
+        set {
+            tabBarController?.navigationItem.title = title
+        }
+        get {
+            return tabBarController?.navigationItem.title
+        }
+    }
+    
+    var bigTitle : String?
+    
     static func start(withUrl url : String, title: String) {
-        let vc = BaseImageVC()
-        vc.title = title
+        let vc = EImageVC()
+        vc.bigTitle = title
         vc.homeUrl = url
         AppDelegate.instance.nav.pushViewController(vc, animated: true)
     }
@@ -37,27 +46,23 @@ class BaseImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate 
     var url : String = "" {
         willSet {
             showProgressDialog()
-            ImagePageFetcher(url: newValue).fetchData(then: self.layoutData)
+            EImagePageFetcher(url: newValue).fetchData(then: self.layoutData)
         }
     }
     
-    @IBAction func refresh() {
+    func refresh() {
         showProgressDialog()
-        ImagePageFetcher(url: url).fetchData(then: self.layoutData)
+        EImagePageFetcher(url: url).fetchData(then: self.layoutData)
     }
     
-    @IBOutlet var originalItem : UIBarButtonItem!
-    
-    @IBAction func original() {
-        if !hd {
-            hd = true
+    func hd() {
+        if !isHD {
+            isHD = true
             showMessage(message: "HD原图已开启")
-            originalItem.title = "LD"
             refresh()
         } else {
-            hd = false
+            isHD = false
             showMessage(message: "HD原图已关闭")
-            originalItem.title = "HD"
             refresh()
         }
     }
@@ -73,11 +78,14 @@ class BaseImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate 
     var scrollView = UIScrollView()
     
     override func viewDidLoad() {
-        
         scrollView.delegate = self
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.showsVerticalScrollIndicator = false
         scrollView.backgroundColor = #colorLiteral(red: 0.9333333333, green: 0.9333333333, blue: 0.9333333333, alpha: 1)
         scrollView.isScrollEnabled = true
-       // scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        if navigationController?.viewControllers.count == 1 {
+            scrollView.contentInset = UIEdgeInsets(top: 65, left: 0, bottom: 0, right: 0)
+        }
         view.addSubview(scrollView)
         scrollView.snp.makeConstraints {
             $0.edges.equalTo(view)
@@ -137,7 +145,7 @@ class BaseImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate 
         scrollView.contentOffset.y = -scrollView.contentInset.top
     }
     
-    func layoutData(_ data : ImagePageData) {
+    func layoutData(_ data : EImagePageData) {
         
         hideProgressDialog()
         clearView()
@@ -191,11 +199,11 @@ class BaseImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate 
             }
             
             func loadImage() {
-                if let url = URL(string: (hd || item.thumbnail.contains("spoiler.png")) ? item.url : item.thumbnail) {
+                if let url = URL(string: (isHD || item.thumbnail.contains("spoiler.png")) ? item.url : item.thumbnail) {
                     image.sd_setImage(with: url, placeholderImage: #imageLiteral(resourceName: "pic_loading"), options: SDWebImageOptions(rawValue: 0)) { img, err, type, url in
                         if let img = img {
                             image.loaded = true
-                            image.original = hd
+                            image.original = isHD
                             
                             image.snp.removeConstraints()
                             image.snp.makeConstraints {
@@ -228,12 +236,12 @@ class BaseImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate 
                 if !image.loaded {
                     loadImage()
                 } else if !image.original {
-                    if !hd {
+                    if !isHD {
                         self.showProgressDialog()
                     }
                     if let url = URL(string: item.url) {
                         image.sd_setImage(with: url, placeholderImage: image.image, options: SDWebImageOptions(rawValue: 0)) { _, _, _, _ in
-                            if !hd {
+                            if !isHD {
                                 self.hideProgressDialog()
                             } else {
                                 image.hideToastActivity()
@@ -262,7 +270,7 @@ class BaseImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate 
             
             var first = true
             for tag in item.tags {
-                if tag.name == title {
+                if tag.name == bigTitle {
                     continue
                 }
                 
@@ -304,10 +312,10 @@ class BaseImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate 
         
         UIView.commitAnimations()
         
-        navigationItem.title = (title ?? "最新") + " · " + String(data.page)
+        title = (bigTitle ?? "最新") + " · " + String(data.page)
         nextPageUrl = data.images.count == 0 ? "" : data.nextPageUrl ?? ""
         prevPageUrl = data.images.count == 0 ? "" : data.prevPageUrl ?? ""
-        prevPageLabel.text = prevPageUrl != "" ? "上一页" : "没有上一页了"
+        prevPageLabel.text = "当前第 \(data.page) 页 / " + (prevPageUrl != "" ? "上一页" : "没有上一页了")
         nextPageLabel.text = nextPageUrl != "" ? "下一页" : "没有下一页了"
     }
     
@@ -323,7 +331,7 @@ class BaseImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate 
         }
     }
     
-    @IBAction func random() {
+    func random() {
         showProgressDialog()
         let request = Alamofire.request("http://e-shuushuu.net/random.php")
         request.responseString { response in
@@ -342,12 +350,12 @@ class BaseImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate 
                 }
             }
         }
-        title = "随机"
+        bigTitle = "随机"
     }
     
-    @IBAction func home() {
+    func home() {
         url = "http://e-shuushuu.net"
-        title = "最新"
+        bigTitle = "最新"
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
@@ -395,7 +403,7 @@ class BaseImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate 
             
             if params.count != 0 {
                 showProgressDialog()
-                title = "搜索结果"
+                bigTitle = "搜索结果"
                 let request = Alamofire.request("http://e-shuushuu.net/search/process/", method: .post, parameters: params)
                 request.responseString { response in
                     if response.result.isSuccess {
@@ -423,8 +431,8 @@ class BaseImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate 
                     }
                 }
             } else if let pageStr = page, let page = Int(pageStr) {
-                if title == "随机" {
-                    title = "最新"
+                if bigTitle == "随机" {
+                    bigTitle = "最新"
                 }
                 
                 let comps = url.components(separatedBy: "?")
