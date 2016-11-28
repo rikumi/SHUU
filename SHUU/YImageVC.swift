@@ -157,6 +157,9 @@ class YImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate, Na
         for i in 0 ..< data.images.count {
             let curBottomView = curLeft ? leftBottomView : rightBottomView
             let item = data.images[i]
+            if item.explicit && (searchBar.text ?? "") != "*" {
+                continue
+            }
             
             let itemView = UIView()
             itemView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
@@ -374,6 +377,10 @@ class YImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate, Na
         searchBar.resignFirstResponder()
         
         if var keyword = searchBar.text {
+            if keyword == "*" {
+                return
+            }
+            
             keyword = keyword.replacingOccurrences(of: "，", with: ",")
             while keyword.contains(", ") {
                 keyword = keyword.replacingOccurrences(of: ", ", with: ",")

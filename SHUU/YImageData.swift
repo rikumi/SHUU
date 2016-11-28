@@ -12,6 +12,7 @@ import Fuzi
 class YImageData : BaseData {
     var thumbnail : String
     var url : String
+    var explicit : Bool
     
     var tags : [YTagData]
     
@@ -22,6 +23,7 @@ class YImageData : BaseData {
         let tagStr = node.firstChild(css: "img")?.attr("alt")
         
         var tagSections = tagStr?.replacingOccurrences(of: " Tags: ", with: "|").replacingOccurrences(of: " User: ", with: "|").components(separatedBy: "|") ?? []
+        explicit = !tagSections[0].contains("Rating: Safe")
         if tagSections.count > 1 {
             tagSections = tagSections[1].components(separatedBy: " ")
         }
