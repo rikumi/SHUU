@@ -25,20 +25,9 @@ class EImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate, Na
     
     var homeUrl = ""
     
-    override var title: String? {
-        set {
-            tabBarController?.navigationItem.title = title
-        }
-        get {
-            return tabBarController?.navigationItem.title
-        }
-    }
-    
-    var bigTitle : String?
-    
     static func start(withUrl url : String, title: String) {
         let vc = EImageVC()
-        vc.bigTitle = title
+        vc.title = title
         vc.homeUrl = url
         AppDelegate.instance.nav.pushViewController(vc, animated: true)
     }
@@ -268,7 +257,7 @@ class EImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate, Na
             
             var first = true
             for tag in item.tags {
-                if tag.name == bigTitle {
+                if tag.name == title {
                     continue
                 }
                 
@@ -310,7 +299,7 @@ class EImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate, Na
         
         UIView.commitAnimations()
         
-        title = (bigTitle ?? "最新") + " · " + String(data.page)
+        title = (title ?? "最新") + " · " + String(data.page)
         nextPageUrl = data.images.count == 0 ? "" : data.nextPageUrl ?? ""
         prevPageUrl = data.images.count == 0 ? "" : data.prevPageUrl ?? ""
         prevPageLabel.text = "当前第 \(data.page) 页 / " + (prevPageUrl != "" ? "上一页" : "没有上一页了")
@@ -348,12 +337,12 @@ class EImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate, Na
                 }
             }
         }
-        bigTitle = "随机"
+        title = "随机"
     }
     
     func home() {
         url = "http://e-shuushuu.net"
-        bigTitle = "最新"
+        title = "最新"
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
@@ -401,7 +390,7 @@ class EImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate, Na
             
             if params.count != 0 {
                 showProgressDialog()
-                bigTitle = "搜索结果"
+                title = "搜索结果"
                 let request = Alamofire.request("http://e-shuushuu.net/search/process/", method: .post, parameters: params)
                 request.responseString { response in
                     if response.result.isSuccess {
@@ -429,8 +418,8 @@ class EImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate, Na
                     }
                 }
             } else if let pageStr = page, let page = Int(pageStr) {
-                if bigTitle == "随机" {
-                    bigTitle = "最新"
+                if title == "随机" {
+                    title = "最新"
                 }
                 
                 let comps = url.components(separatedBy: "?")

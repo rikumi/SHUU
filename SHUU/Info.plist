@@ -57,6 +57,8 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIStatusBarStyle</key>
-	<string>UIStatusBarStyleLightContent</string>
+    <string>UIStatusBarStyleLightContent</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>此 App 需要您的同意才能读取媒体资料库</string>
 </dict>
 </plist>

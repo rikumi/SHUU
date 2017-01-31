@@ -25,20 +25,9 @@ class YImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate, Na
     
     var homeUrl = ""
     
-    override var title: String? {
-        set {
-            tabBarController?.navigationItem.title = title
-        }
-        get {
-            return tabBarController?.navigationItem.title
-        }
-    }
-    
-    var bigTitle : String?
-    
     static func start(withUrl url : String, title: String) {
         let vc = YImageVC()
-        vc.bigTitle = title
+        vc.title = title
         vc.homeUrl = url
         AppDelegate.instance.nav.pushViewController(vc, animated: true)
     }
@@ -157,7 +146,7 @@ class YImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate, Na
         for i in 0 ..< data.images.count {
             let curBottomView = curLeft ? leftBottomView : rightBottomView
             let item = data.images[i]
-            if item.explicit && (searchBar.text ?? "") != "*" {
+            if item.explicit && ((UIPasteboard.general.string ?? "") != "*EX*") {
                 continue
             }
             
@@ -271,7 +260,7 @@ class YImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate, Na
             
             var first = true
             for tag in item.tags {
-                if tag.name == bigTitle {
+                if tag.name == title {
                     continue
                 }
                 
@@ -356,12 +345,12 @@ class YImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate, Na
             map.updateValue((map["tags"]?.appending(" ") ?? "") + "order:random", forKey: "tags")
         }
         url = left + "?" + map.map { $0.0 + "=" + $0.1 }.joined(separator: "&")
-        bigTitle = "随机"
+        title = "随机"
     }
     
     func home() {
         url = "https://yande.re"
-        bigTitle = "最新"
+        title = "最新"
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
@@ -406,7 +395,7 @@ class YImageVC : UIViewController, UIScrollViewDelegate, UISearchBarDelegate, Na
             }
             
             if tagParam != "" {
-                bigTitle = "搜索结果"
+                title = "搜索结果"
                 var newUrl = "https://yande.re/post?tags=" + tagParam
                 if let pageStr = page, let page = Int(pageStr) {
                     newUrl += "&page=" + String(page)
